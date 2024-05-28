@@ -31,4 +31,7 @@ Content-Type: application/json
 ###
 GET {{url}}/api/messages
 
+###
+GET {{url}}/api/messages/10
+
 

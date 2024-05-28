@@ -94,3 +94,18 @@ func DeleteMessage(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusNoContent)
 }
+
+func GetMessage2(w http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+
+	query := `SELECT * FROM messages WHERE id = ?`
+	result, err := database.Query(query, id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(result)
+}

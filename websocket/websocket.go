@@ -38,7 +38,7 @@ func HandleConnections(w http.ResponseWriter, r *http.Request) {
 func HandleMessages() {
 	for {
 		msg := <-broadcast
-		log.Println("WS: ", broadcast)
+		log.Println("Broadcast:", clients, broadcast)
 		for client := range clients {
 			err := client.WriteJSON(msg)
 			if err != nil {

@@ -17,6 +17,7 @@ func main() {
 	router.HandleFunc("/api/messages", handlers.CreateMessage).Methods("POST")
 	router.HandleFunc("/api/messages", handlers.GetMessages).Methods("GET")
 	router.HandleFunc("/api/messages/{id}", handlers.UpdateMessage).Methods("PUT")
+	router.HandleFunc("/api/messages/{id}", handlers.GetMessage2).Methods("GET")
 	router.HandleFunc("/api/messages/{id}", handlers.DeleteMessage).Methods("DELETE")
 	router.HandleFunc("/ws", websocket.HandleConnections)
 
