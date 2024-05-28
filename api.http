@@ -1,0 +1,34 @@
+WEBSOCKET ws://localhost:8000/ws
+Content-Type: application/json // used only for IDE highlighting.
+// Highlighting is applied for each message independently.
+
+
+{
+    "content": "Send when the WebSocket connection is opened"
+}
+
+###
+###
+DELETE {{url}}/api/messages/1
+
+###
+PUT {{url}}/api/messages/9
+Content-Type: application/json
+
+{
+  "content": "Testing"
+}
+
+###
+POST {{url}}/api/messages
+Content-Type: application/json
+
+{
+  "content": "{{jwt}}"
+}
+
+
+###
+GET {{url}}/api/messages
+
+
