@@ -11,7 +11,7 @@ import (
 )
 
 func CreateMessage(w http.ResponseWriter, r *http.Request) {
-	var msg models.Mesaage
+	var msg models.Message
 	if err := json.NewDecoder(r.Body).Decode(&msg); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -42,9 +42,9 @@ func GetMessages(w http.ResponseWriter, r *http.Request) {
 
 	defer rows.Close()
 
-	var message []models.Mesaage
+	var message []models.Message
 	for rows.Next() {
-		var msg models.Mesaage
+		var msg models.Message
 		if err := rows.Scan(&msg.ID, &msg.Content); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
@@ -56,7 +56,7 @@ func GetMessages(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateMessage(w http.ResponseWriter, r *http.Request) {
-	var msg models.Mesaage
+	var msg models.Message
 	if err := json.NewDecoder(r.Body).Decode(&msg); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

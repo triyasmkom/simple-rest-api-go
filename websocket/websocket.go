@@ -8,7 +8,7 @@ import (
 )
 
 var clients = make(map[*websocket.Conn]bool)
-var broadcast = make(chan models.Mesaage)
+var broadcast = make(chan models.Message)
 var upgrader = websocket.Upgrader{}
 
 func HandleConnections(w http.ResponseWriter, r *http.Request) {
@@ -26,7 +26,7 @@ func HandleConnections(w http.ResponseWriter, r *http.Request) {
 	clients[ws] = true
 
 	for {
-		var msg models.Mesaage
+		var msg models.Message
 		err := ws.ReadJSON(&msg)
 		if err != nil {
 			delete(clients, ws)
@@ -50,6 +50,6 @@ func HandleMessages() {
 	}
 }
 
-func BroadcastMessage(msg models.Mesaage) {
+func BroadcastMessage(msg models.Message) {
 	broadcast <- msg
 }
