@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"log"
+	mg "rest-api-gorilla/database/migration"
 
 	_ "modernc.org/sqlite"
 )
@@ -16,20 +17,8 @@ func InitDatabase() {
 	if err != nil {
 		log.Fatalf("Failed to connect to database : %v", err)
 	}
-	createTable()
-}
 
-func createTable() {
-	query := `
-	CREATE TABLE IF NOT EXISTS messages (
-	    id INTEGER PRIMARY KEY AUTOINCREMENT,
-	    content TEXT NOT NULL
-	);`
-
-	_, err := DB.Exec(query)
-	if err != nil {
-		log.Fatalf("Failed to Create Table: %v", err)
-	}
+	mg.Migration(DB)
 }
 
 func Query(query string, args ...interface{}) ([]interface{}, error) {
