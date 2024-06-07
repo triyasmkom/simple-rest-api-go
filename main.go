@@ -4,10 +4,13 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"os"
 	"rest-api-gorilla/database"
 	"rest-api-gorilla/handlers"
 	"rest-api-gorilla/websocket"
 )
+
+var pathEnv = ".env"
 
 func main() {
 	database.InitDatabase()
@@ -22,8 +25,18 @@ func main() {
 	router.HandleFunc("/ws", websocket.HandleConnections)
 
 	go websocket.HandleMessages()
+	var port = "8000"
+	err := handlers.LoadEnv(pathEnv)
+	if err != nil {
+		log.Println("Load env :", err)
+	}
 
-	log.Println("Server started at :8000")
-	server := http.ListenAndServe(":8000", router)
+	port = os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
+
+	log.Println("Server started at :" + port)
+	server := http.ListenAndServe(":"+port, router)
 	log.Fatal(server)
 }
